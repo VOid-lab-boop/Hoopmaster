@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HoopMaster Pro - AI-Powered Basketball Training Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5D5CDE',
+                        'primary-dark': '#4B4BC8',
+                        basketball: '#FF6B00',
+                        court: '#1F2937'
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 2s infinite',
+                        'pulse-slow': 'pulse 3s infinite'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .basketball-pattern {
+            background-image: radial-gradient(circle at 25% 25%, #FF6B00 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+        .glass {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .dark .glass {
+            background: rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
+    <!-- Dark Mode Handler -->
+    <script>
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+    </script>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-md z-50 border-b border-gray-200 dark:border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center mr-3">
+                            <i data-lucide="target" class="w-5 h-5 text-white"></i>
+                        </div>
+                        <span class="text-xl font-bold text-primary">HoopMaster Pro</span>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#features" class="hover:text-primary transition-colors px-3 py-2 text-sm font-medium">Features</a>
+                        <a href="#ai-coach" class="hover:text-primary transition-colors px-3 py-2 text-sm font-medium">AI Coach</a>
+                        <a href="#dashboard" class="hover:text-primary transition-colors px-3 py-2 text-sm font-medium">Dashboard</a>
+                        <a href="#pricing" class="hover:text-primary transition-colors px-3 py-2 text-sm font-medium">Pricing</a>
+                        <button onclick="openDashboard()" class="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                            Dashboard
+                        </button>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button onclick="toggleMobileMenu()" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#features" class="block px-3 py-2 text-base font-medium hover:text-primary">Features</a>
+                <a href="#ai-coach" class="block px-3 py-2 text-base font-medium hover:text-primary">AI Coach</a>
+                <a href="#dashboard" class="block px-3 py-2 text-base font-medium hover:text-primary">Dashboard</a>
+                <a href="#pricing" class="block px-3 py-2 text-base font-medium hover:text-primary">Pricing</a>
+                <button onclick="openDashboard()" class="w-full text-left bg-primary text-white px-3 py-2 rounded-lg font-medium">
+                    Dashboard
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-16 min-h-screen flex items-center gradient-bg relative overflow-hidden">
+        <div class="absolute inset-0 basketball-pattern opacity-10"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
+                    Master Basketball with
+                    <span class="text-basketball">AI-Powered</span> Training
+                </h1>
+                <p class="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto">
+                    Revolutionary 6-pillar curriculum combining professional training with cutting-edge AI technology
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button onclick="startAICoaching()" class="bg-basketball hover:bg-orange-600 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all transform hover:scale-105">
+                        Start AI Coaching
+                    </button>
+                    <button onclick="openDashboard()" class="bg-white/20 hover:bg-white/30 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all border border-white/30">
+                        View Dashboard
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Overview -->
+    <section id="features" class="py-20 bg-gray-50 dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Revolutionary 6-Pillar Training System</h2>
+                <p class="text-xl text-gray-600 dark:text-gray-300">Comprehensive basketball development for all skill levels</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="target" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">On-Court Skill Mastery</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Elite training drills with AI-powered form analysis and progression tracking</p>
+                </div>
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="w-12 h-12 bg-basketball rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="brain" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Game IQ & Decision-Making</h3>
+                    <p class="text-gray-600 dark:text-gray-300">AI-assisted situational learning using real game footage</p>
+                </div>
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="activity" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Performance Analysis</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Real-time AI feedback on technique with personalized recommendations</p>
+                </div>
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="trending-up" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Player Tracking</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Smart goals and comprehensive progress visualization</p>
+                </div>
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="zap" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Physical Conditioning</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Basketball-specific fitness with AI nutritionist guidance</p>
+                </div>
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="heart" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Mindset & Leadership</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Mental performance techniques and leadership development</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Coach Section -->
+    <section id="ai-coach" class="py-20 bg-white dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Your Personal AI Coach</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 mb-8">
+                        Get 24/7 access to professional coaching with our advanced AI system that analyzes your technique and provides personalized training recommendations.
+                    </p>
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center">
+                            <div class="w-6 h-6 bg-primary rounded-full flex items-center justify-center mr-3">
+                                <i data-lucide="check" class="w-4 h-4 text-white"></i>
+                            </div>
+                            <span>Real-time form analysis and corrections</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-6 h-6 bg-primary rounded-full flex items-center justify-center mr-3">
+                                <i data-lucide="check" class="w-4 h-4 text-white"></i>
+                            </div>
+                            <span>Personalized training plans</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-6 h-6 bg-primary rounded-full flex items-center justify-center mr-3">
+                                <i data-lucide="check" class="w-4 h-4 text-white"></i>
+                            </div>
+                            <span>Instant Q&A support</span>
+                        </div>
+                    </div>
+                    <button onclick="startAICoaching()" class="bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+                        Start Coaching Session
+                    </button>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center mr-3">
+                            <i data-lucide="bot" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">AI Coach</h3>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Online</p>
+                        </div>
+                    </div>
+                    <div id="ai-coach-chat" class="space-y-3 h-64 overflow-y-auto mb-4 p-4 bg-white dark:bg-gray-700 rounded-lg">
+                        <div class="text-sm text-gray-500 dark:text-gray-400 text-center">Ask your AI Coach anything about basketball training!</div>
+                    </div>
+                    <div class="flex gap-2">
+                        <input id="coach-input" type="text" placeholder="Ask about shooting form, drills, or strategy..." 
+                               class="flex-1 px-4 py-2 text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 focus:ring-2 focus:ring-primary focus:border-transparent">
+                        <button onclick="askAICoach()" class="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-lg transition-colors">
+                            <i data-lucide="send" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Nutritionist Section -->
+    <section class="py-20 bg-gray-50 dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="bg-white dark:bg-gray-700 rounded-xl p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center mr-3">
+                            <i data-lucide="apple" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold">AI Nutritionist</h3>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Available 24/7</p>
+                        </div>
+                    </div>
+                    <div id="ai-nutritionist-chat" class="space-y-3 h-64 overflow-y-auto mb-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                        <div class="text-sm text-gray-500 dark:text-gray-400 text-center">Get personalized nutrition advice for peak basketball performance!</div>
+                    </div>
+                    <div class="flex gap-2">
+                        <input id="nutrition-input" type="text" placeholder="Ask about meal plans, supplements, or recovery nutrition..." 
+                               class="flex-1 px-4 py-2 text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                        <button onclick="askAINutritionist()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors">
+                            <i data-lucide="send" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">AI Nutritionist</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 mb-8">
+                        Optimize your performance with personalized nutrition guidance tailored specifically for basketball players.
+                    </p>
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center">
+                            <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center mr-3">
+                                <i data-lucide="check" class="w-4 h-4 text-white"></i>
+                            </div>
+                            <span>Personalized meal plans for peak performance</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center mr-3">
+                                <i data-lucide="check" class="w-4 h-4 text-white"></i>
+                            </div>
+                            <span>Recovery nutrition protocols</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center mr-3">
+                                <i data-lucide="check" class="w-4 h-4 text-white"></i>
+                            </div>
+                            <span>Supplement recommendations</span>
+                        </div>
+                    </div>
+                    <button onclick="startNutritionConsult()" class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+                        Start Nutrition Consultation
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Preview -->
+    <section id="dashboard" class="py-20 bg-white dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Smart Player Dashboard</h2>
+                <p class="text-xl text-gray-600 dark:text-gray-300">Track your progress with comprehensive analytics and insights</p>
+            </div>
+            
+            <div id="player-dashboard" class="space-y-8">
+                <!-- Dashboard will be populated here -->
+            </div>
+            
+            <div class="text-center mt-8">
+                <button onclick="openDashboard()" class="bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+                    Open Full Dashboard
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 bg-gray-50 dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Choose Your Training Plan</h2>
+                <p class="text-xl text-gray-600 dark:text-gray-300">Unlock your potential with our flexible pricing options</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Starter Plan -->
+                <div class="bg-white dark:bg-gray-700 rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold mb-2">Starter</h3>
+                        <div class="text-4xl font-bold text-primary mb-2">$35</div>
+                        <div class="text-gray-600 dark:text-gray-300">per month</div>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-3"></i>
+                            <span>Basic AI Coach access</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-3"></i>
+                            <span>Fundamental skill training</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-3"></i>
+                            <span>Basic progress tracking</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-3"></i>
+                            <span>Weekly training plans</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-white py-3 rounded-lg font-semibold hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors">
+                        Get Started
+                    </button>
+                </div>
+
+                <!-- Pro Plan -->
+                <div class="bg-white dark:bg-gray-700 rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow border-2 border-primary relative">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <span class="bg-primary text-white px-4 py-1 rounded-full text-sm font-semibold">Most Popular</span>
+                    </div>
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold mb-2">Pro</h3>
+                        <div class="text-4xl font-bold text-primary mb-2">$70</div>
+                        <div class="text-gray-600 dark:text-gray-300">per month</div>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-3"></i>
+                            <span>Advanced AI Coach + Nutritionist</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-3"></i>
+                            <span>Video analysis & feedback</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-3"></i>
+                            <span>Advanced performance tracking</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-3"></i>
+                            <span>Game IQ training modules</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-3"></i>
+                            <span>Custom workout plans</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-primary hover:bg-primary-dark text-white py-3 rounded-lg font-semibold transition-colors">
+                        Go Pro
+                    </button>
+                </div>
+
+                <!-- Elite Plan -->
+                <div class="bg-white dark:bg-gray-700 rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold mb-2">Elite</h3>
+                        <div class="text-4xl font-bold text-basketball mb-2">$100</div>
+                        <div class="text-gray-600 dark:text-gray-300">per month</div>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-3"></i>
+                            <span>Everything in Pro +</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-3"></i>
+                            <span>1-on-1 virtual coaching sessions</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-3"></i>
+                            <span>Advanced analytics & insights</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-3"></i>
+                            <span>Recruitment profile builder</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check" class="w-5 h-5 text-green-500 mr-3"></i>
+                            <span>Priority support & features</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-basketball hover:bg-orange-600 text-white py-3 rounded-lg font-semibold transition-colors">
+                        Go Elite
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-court dark:bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center mb-4">
+                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center mr-3">
+                            <i data-lucide="target" class="w-5 h-5 text-white"></i>
+                        </div>
+                        <span class="text-xl font-bold">HoopMaster Pro</span>
+                    </div>
+                    <p class="text-gray-300 mb-4 max-w-md">
+                        The future of basketball training - combining AI technology with proven methodologies for players worldwide.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Platform</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#features" class="hover:text-white transition-colors">Features</a></li>
+                        <li><a href="#ai-coach" class="hover:text-white transition-colors">AI Coach</a></li>
+                        <li><a href="#dashboard" class="hover:text-white transition-colors">Dashboard</a></li>
+                        <li><a href="#pricing" class="hover:text-white transition-colors">Pricing</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Support</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" class="hover:text-white transition-colors">Help Center</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Community</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-300">
+                <p>&copy; 2024 HoopMaster Pro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Functional player data with persistence
+        let playerData = {
+            name: "Player",
+            level: "Intermediate",
+            totalPoints: 2450,
+            weeklyGoal: 500,
+            currentWeekPoints: 320,
+            dailyStreak: 5,
+            joinDate: "2024-01-01",
+            skills: {
+                shooting: 75,
+                dribbling: 68,
+                defense: 72,
+                conditioning: 80,
+                gameIQ: 65
+            },
+            recentWorkouts: [
+                { id: 1, date: "2024-01-15", type: "Shooting", duration: 45, points: 85, completed: true },
+                { id: 2, date: "2024-01-14", type: "Conditioning", duration: 30, points: 90, completed: true },
+                { id: 3, date: "2024-01-13", type: "Ball Handling", duration: 40, points: 78, completed: true }
+            ],
+            goals: [
+                { id: 1, title: "Improve Free Throw %", target: 85, current: 78, type: "shooting" },
+                { id: 2, title: "Increase Vertical Jump", target: 30, current: 26, type: "conditioning" },
+                { id: 3, title: "Master Crossover", target: 100, current: 68, type: "dribbling" }
+            ],
+            weeklyStats: {
+                workouts: 5,
+                totalMinutes: 240,
+                avgScore: 84,
+                improvement: 12
+            },
+            achievements: [
+                { id: 1, title: "First Workout", description: "Complete your first training session", unlocked: true, date: "2024-01-01" },
+                { id: 2, title: "5-Day Streak", description: "Train for 5 consecutive days", unlocked: true, date: "2024-01-15" },
+                { id: 3, title: "Sharpshooter", description: "Score 90+ on shooting drill", unlocked: false, progress: 85 }
+            ]
+        };
+
+        // Workout templates
+        const workoutTemplates = [
+            { type: "Shooting", duration: 30, skills: ["shooting"], difficulty: "Beginner" },
+            { type: "Ball Handling", duration: 25, skills: ["dribbling"], difficulty: "Intermediate" },
+            { type: "Defensive Drills", duration: 35, skills: ["defense"], difficulty: "Advanced" },
+            { type: "Conditioning", duration: 40, skills: ["conditioning"], difficulty: "Beginner" },
+            { type: "Game IQ", duration: 20, skills: ["gameIQ"], difficulty: "Intermediate" },
+            { type: "Full Court Practice", duration: 60, skills: ["shooting", "dribbling", "defense"], difficulty: "Advanced" }
+        ];
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // AI Coach functionality
+        function startAICoaching() {
+            document.getElementById('ai-coach').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('coach-input').focus();
+        }
+
+        // Register AI Coach handler
+        window.Poe?.registerHandler("ai-coach-handler", (result, context) => {
+            const chatDiv = document.getElementById('ai-coach-chat');
+            const msg = result.responses[0];
+            
+            if (msg.status === "error") {
+                addChatMessage('ai-coach-chat', 'AI Coach', "I'm having trouble right now. Please try again.", 'error');
+            } else if (msg.status === "incomplete") {
+                updateLatestMessage('ai-coach-chat', msg.content);
+            } else if (msg.status === "complete") {
+                updateLatestMessage('ai-coach-chat', msg.content);
+            }
+        });
+
+        async function askAICoach() {
+            const input = document.getElementById('coach-input');
+            const question = input.value.trim();
+            
+            if (!question) return;
+            
+            addChatMessage('ai-coach-chat', 'You', question, 'user');
+            addChatMessage('ai-coach-chat', 'AI Coach', 'Analyzing your question...', 'assistant', true);
+            input.value = '';
+            
+            try {
+                await window.Poe.sendUserMessage(`@Claude-Sonnet-4 You are a professional basketball coach with decades of experience. Answer this basketball training question with specific, actionable advice: ${question}`, {
+                    handler: "ai-coach-handler",
+                    stream: true,
+                    openChat: false
+                });
+            } catch (err) {
+                addChatMessage('ai-coach-chat', 'AI Coach', 'Sorry, I encountered an error. Please try again.', 'error');
+            }
+        }
+
+        // AI Nutritionist functionality
+        function startNutritionConsult() {
+            document.querySelector('[href="#ai-nutritionist"]')?.scrollIntoView({ behavior: 'smooth' }) || 
+            document.querySelector('section:nth-child(5)').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('nutrition-input').focus();
+        }
+
+        // Register AI Nutritionist handler
+        window.Poe?.registerHandler("ai-nutritionist-handler", (result, context) => {
+            const msg = result.responses[0];
+            
+            if (msg.status === "error") {
+                addChatMessage('ai-nutritionist-chat', 'AI Nutritionist', "I'm having trouble right now. Please try again.", 'error');
+            } else if (msg.status === "incomplete") {
+                updateLatestMessage('ai-nutritionist-chat', msg.content);
+            } else if (msg.status === "complete") {
+                updateLatestMessage('ai-nutritionist-chat', msg.content);
+            }
+        });
+
+        async function askAINutritionist() {
+            const input = document.getElementById('nutrition-input');
+            const question = input.value.trim();
+            
+            if (!question) return;
+            
+            addChatMessage('ai-nutritionist-chat', 'You', question, 'user');
+            addChatMessage('ai-nutritionist-chat', 'AI Nutritionist', 'Preparing nutrition advice...', 'assistant', true);
+            input.value = '';
+            
+            try {
+                await window.Poe.sendUserMessage(`@Claude-Sonnet-4 You are a sports nutritionist specializing in basketball performance. Provide specific, science-backed nutrition advice for this question: ${question}`, {
+                    handler: "ai-nutritionist-handler",
+                    stream: true,
+                    openChat: false
+                });
+            } catch (err) {
+                addChatMessage('ai-nutritionist-chat', 'AI Nutritionist', 'Sorry, I encountered an error. Please try again.', 'error');
+            }
+        }
+
+        // Chat helper functions
+        function addChatMessage(chatId, sender, message, type, isLoading = false) {
+            const chatDiv = document.getElementById(chatId);
+            const messageDiv = document.createElement('div');
+            messageDiv.className = type === 'user' ? 'text-right' : 'text-left';
+            
+            const bgColor = type === 'user' ? 'bg-primary text-white' : 
+                           type === 'error' ? 'bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200' :
+                           'bg-gray-100 dark:bg-gray-600 text-gray-800 dark:text-gray-200';
+            
+            messageDiv.innerHTML = `
+                <div class="inline-block max-w-xs ${bgColor} px-3 py-2 rounded-lg">
+                    <div class="text-xs font-semibold mb-1">${sender}</div>
+                    <div class="message-content">${message}</div>
+                </div>
+            `;
+            
+            if (isLoading) {
+                messageDiv.setAttribute('data-loading', 'true');
+            }
+            
+            chatDiv.appendChild(messageDiv);
+            chatDiv.scrollTop = chatDiv.scrollHeight;
+        }
+
+        function updateLatestMessage(chatId, content) {
+            const chatDiv = document.getElementById(chatId);
+            const loadingMessage = chatDiv.querySelector('[data-loading="true"] .message-content');
+            if (loadingMessage) {
+                loadingMessage.textContent = content;
+            }
+        }
+
+        // Dashboard functionality
+        function openDashboard() {
+            renderDashboard();
+            document.getElementById('dashboard').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function renderDashboard() {
+            const dashboardDiv = document.getElementById('player-dashboard');
+            const progressPercent = (playerData.currentWeekPoints / playerData.weeklyGoal) * 100;
+            
+            dashboardDiv.innerHTML = `
+                <!-- Dashboard Header with Navigation -->
+                <div class="bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg mb-8">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
+                        <div>
+                            <h2 class="text-2xl font-bold mb-2">Welcome back, ${playerData.name}!</h2>
+                            <p class="text-gray-600 dark:text-gray-300">Ready to elevate your game today?</p>
+                        </div>
+                        <div class="flex gap-2 mt-4 sm:mt-0">
+                            <button onclick="showDashboardTab('overview')" id="tab-overview" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-primary text-white">
+                                Overview
+                            </button>
+                            <button onclick="showDashboardTab('workouts')" id="tab-workouts" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300">
+                                Workouts
+                            </button>
+                            <button onclick="showDashboardTab('goals')" id="tab-goals" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300">
+                                Goals
+                            </button>
+                            <button onclick="showDashboardTab('achievements')" id="tab-achievements" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300">
+                                Achievements
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Action Buttons -->
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="startQuickWorkout()" class="bg-basketball hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center">
+                            <i data-lucide="play" class="w-4 h-4 mr-2"></i>
+                            Quick Workout
+                        </button>
+                        <button onclick="updateGoal()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center">
+                            <i data-lucide="target" class="w-4 h-4 mr-2"></i>
+                            Set Goal
+                        </button>
+                        <button onclick="logProgress()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center">
+                            <i data-lucide="plus" class="w-4 h-4 mr-2"></i>
+                            Log Progress
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Dashboard Content Tabs -->
+                <div id="dashboard-content">
+                    <!-- Overview Tab -->
+                    <div id="content-overview" class="dashboard-tab-content">
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            <!-- Main Stats -->
+                            <div class="lg:col-span-2 space-y-6">
+                                <!-- Weekly Progress -->
+                                <div class="bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg">
+                                    <div class="flex justify-between items-center mb-4">
+                                        <h3 class="text-xl font-semibold">Weekly Progress</h3>
+                                        <button onclick="updateWeeklyGoal()" class="text-primary hover:text-primary-dark text-sm">
+                                            Edit Goal
+                                        </button>
+                                    </div>
+                                    <div class="flex items-center justify-between mb-4">
+                                        <span class="text-sm text-gray-600 dark:text-gray-300">Goal: ${playerData.weeklyGoal} points</span>
+                                        <span class="text-sm font-semibold">${playerData.currentWeekPoints}/${playerData.weeklyGoal}</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-4 mb-2">
+                                        <div class="bg-gradient-to-r from-primary to-basketball rounded-full h-4 transition-all duration-500" style="width: ${Math.min(progressPercent, 100)}%"></div>
+                                    </div>
+                                    <div class="text-center">
+                                        <span class="text-2xl font-bold text-primary">${Math.round(progressPercent)}%</span>
+                                        <span class="text-sm text-gray-600 dark:text-gray-300 ml-1">Complete</span>
+                                    </div>
+                                </div>
+
+                                <!-- Skills Development -->
+                                <div class="bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg">
+                                    <div class="flex justify-between items-center mb-4">
+                                        <h3 class="text-xl font-semibold">Skill Development</h3>
+                                        <button onclick="analyzeSkills()" class="text-primary hover:text-primary-dark text-sm">
+                                            Get AI Analysis
+                                        </button>
+                                    </div>
+                                    <div class="space-y-4">
+                                        ${Object.entries(playerData.skills).map(([skill, value]) => `
+                                            <div>
+                                                <div class="flex justify-between text-sm mb-1">
+                                                    <span class="capitalize font-medium">${skill.replace(/([A-Z])/g, ' $1').trim()}</span>
+                                                    <div class="flex items-center gap-2">
+                                                        <span>${value}%</span>
+                                                        <button onclick="improveSkill('${skill}')" class="text-primary hover:text-primary-dark">
+                                                            <i data-lucide="plus" class="w-3 h-3"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                                                    <div class="bg-gradient-to-r from-primary to-basketball rounded-full h-2 transition-all duration-500" style="width: ${value}%"></div>
+                                                </div>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+
+                                <!-- Weekly Stats Overview -->
+                                <div class="bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg">
+                                    <h3 class="text-xl font-semibold mb-4">This Week's Summary</h3>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div class="text-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                                            <div class="text-2xl font-bold text-blue-600">${playerData.weeklyStats.workouts}</div>
+                                            <div class="text-sm text-gray-600 dark:text-gray-300">Workouts</div>
+                                        </div>
+                                        <div class="text-center p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                                            <div class="text-2xl font-bold text-green-600">${playerData.weeklyStats.totalMinutes}</div>
+                                            <div class="text-sm text-gray-600 dark:text-gray-300">Minutes</div>
+                                        </div>
+                                        <div class="text-center p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                                            <div class="text-2xl font-bold text-purple-600">${playerData.weeklyStats.avgScore}</div>
+                                            <div class="text-sm text-gray-600 dark:text-gray-300">Avg Score</div>
+                                        </div>
+                                        <div class="text-center p-4 bg-basketball/10 rounded-lg">
+                                            <div class="text-2xl font-bold text-basketball">+${playerData.weeklyStats.improvement}%</div>
+                                            <div class="text-sm text-gray-600 dark:text-gray-300">Improvement</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sidebar -->
+                            <div class="space-y-6">
+                                <!-- Quick Stats -->
+                                <div class="bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg">
+                                    <h3 class="text-xl font-semibold mb-4">Player Stats</h3>
+                                    <div class="space-y-4">
+                                        <div class="flex justify-between">
+                                            <span class="text-gray-600 dark:text-gray-300">Total Points</span>
+                                            <span class="font-semibold text-primary">${playerData.totalPoints.toLocaleString()}</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span class="text-gray-600 dark:text-gray-300">Level</span>
+                                            <span class="font-semibold">${playerData.level}</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span class="text-gray-600 dark:text-gray-300">Daily Streak</span>
+                                            <span class="font-semibold text-orange-500">${playerData.dailyStreak} days</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span class="text-gray-600 dark:text-gray-300">Member Since</span>
+                                            <span class="font-semibold">${new Date(playerData.joinDate).toLocaleDateString()}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Recent Activity -->
+                                <div class="bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg">
+                                    <h3 class="text-xl font-semibold mb-4">Recent Workouts</h3>
+                                    <div class="space-y-3">
+                                        ${playerData.recentWorkouts.slice(0, 3).map((workout, index) => `
+                                            <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-600 rounded-lg">
+                                                <div>
+                                                    <div class="font-medium">${workout.type}</div>
+                                                    <div class="text-sm text-gray-600 dark:text-gray-300">${workout.duration} min • ${new Date(workout.date).toLocaleDateString()}</div>
+                                                </div>
+                                                <div class="text-primary font-semibold">${workout.points}</div>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                    <button onclick="showDashboardTab('workouts')" class="w-full mt-4 text-primary hover:text-primary-dark text-sm font-medium">
+                                        View All Workouts →
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Other tab contents will be populated here -->
+                </div>
+            `;
+            
+            // Re-initialize Lucide icons for new content
+            lucide.createIcons();
+        }
+
+        // Dashboard tab functionality
+        let currentTab = 'overview';
+
+        function showDashboardTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('[id^="tab-"]').forEach(btn => {
+                btn.className = 'px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300';
+            });
+            document.getElementById(`tab-${tabName}`).className = 'px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-primary text-white';
+
+            // Hide all tab contents
+            document.querySelectorAll('.dashboard-tab-content').forEach(content => {
+                content.style.display = 'none';
+            });
+
+            // Show selected tab content
+            let contentDiv = document.getElementById(`content-${tabName}`);
+            if (!contentDiv) {
+                contentDiv = document.createElement('div');
+                contentDiv.id = `content-${tabName}`;
+                contentDiv.className = 'dashboard-tab-content';
+                document.getElementById('dashboard-content').appendChild(contentDiv);
+            }
+            contentDiv.style.display = 'block';
+
+            currentTab = tabName;
+            renderTabContent(tabName);
+        }
+
+        function renderTabContent(tabName) {
+            const contentDiv = document.getElementById(`content-${tabName}`);
+            
+            switch(tabName) {
+                case 'workouts':
+                    contentDiv.innerHTML = `
+                        <div class="space-y-6">
+                            <!-- Workout Creator -->
+                            <div class="bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg">
+                                <h3 class="text-xl font-semibold mb-4">Create Custom Workout</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                                    <select id="workout-type" class="px-4 py-2 text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700">
+                                        <option>Select Workout Type</option>
+                                        ${workoutTemplates.map(template => `<option value="${template.type}">${template.type}</option>`).join('')}
+                                    </select>
+                                    <input id="workout-duration" type="number" placeholder="Duration (minutes)" min="5" max="120" 
+                                           class="px-4 py-2 text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700">
+                                    <button onclick="startCustomWorkout()" class="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-lg font-medium">
+                                        Start Workout
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Quick Workout Templates -->
+                            <div class="bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg">
+                                <h3 class="text-xl font-semibold mb-4">Quick Start Templates</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                    ${workoutTemplates.map(template => `
+                                        <div class="border border-gray-200 dark:border-gray-600 rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
+                                            <h4 class="font-semibold">${template.type}</h4>
+                                            <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">${template.duration} min • ${template.difficulty}</p>
+                                            <p class="text-xs text-gray-500 dark:text-gray-400 mb-3">Focuses on: ${template.skills.join(', ')}</p>
+                                            <button onclick="startTemplateWorkout('${template.type}')" class="w-full bg-basketball hover:bg-orange-600 text-white px-3 py-2 rounded text-sm">
+                                                Start Now
+                                            </button>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+
+                            <!-- Workout History -->
+                            <div class="bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h3 class="text-xl font-semibold">Workout History</h3>
+                                    <button onclick="exportWorkoutData()" class="text-primary hover:text-primary-dark text-sm">Export Data</button>
+                                </div>
+                                <div class="space-y-3">
+                                    ${playerData.recentWorkouts.map(workout => `
+                                        <div class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-600 rounded-lg">
+                                            <div>
+                                                <div class="font-medium">${workout.type}</div>
+                                                <div class="text-sm text-gray-600 dark:text-gray-300">${new Date(workout.date).toLocaleDateString()} • ${workout.duration} minutes</div>
+                                            </div>
+                                            <div class="flex items-center gap-4">
+                                                <div class="text-center">
+                                                    <div class="text-lg font-bold text-primary">${workout.points}</div>
+                                                    <div class="text-xs text-gray-500 dark:text-gray-400">Score</div>
+                                                </div>
+                                                <button onclick="repeatWorkout(${workout.id})" class="text-basketball hover:text-orange-600">
+                                                    <i data-lucide="repeat" class="w-4 h-4"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'goals':
+                    contentDiv.innerHTML = `
+                        <div class="space-y-6">
+                            <!-- Goal Creator -->
+                            <div class="bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg">
+                                <h3 class="text-xl font-semibold mb-4">Set New Goal</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+                                    <input id="goal-title" type="text" placeholder="Goal title" 
+                                           class="px-4 py-2 text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700">
+                                    <input id="goal-target" type="number" placeholder="Target value" 
+                                           class="px-4 py-2 text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700">
+                                    <select id="goal-skill" class="px-4 py-2 text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700">
+                                        <option>Select skill</option>
+                                        ${Object.keys(playerData.skills).map(skill => `<option value="${skill}">${skill}</option>`).join('')}
+                                    </select>
+                                    <button onclick="createGoal()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-medium">
+                                        Create Goal
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Active Goals -->
+                            <div class="bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg">
+                                <h3 class="text-xl font-semibold mb-4">Active Goals</h3>
+                                <div class="space-y-4">
+                                    ${playerData.goals.map(goal => `
+                                        <div class="border border-gray-200 dark:border-gray-600 rounded-lg p-4">
+                                            <div class="flex justify-between items-start mb-3">
+                                                <div>
+                                                    <h4 class="font-semibold">${goal.title}</h4>
+                                                    <span class="text-sm text-gray-600 dark:text-gray-300 capitalize">${goal.type} skill</span>
+                                                </div>
+                                                <div class="text-right">
+                                                    <div class="text-lg font-bold">${goal.current}/${goal.target}</div>
+                                                    <div class="text-xs text-gray-500 dark:text-gray-400">${Math.round((goal.current/goal.target)*100)}% complete</div>
+                                                </div>
+                                            </div>
+                                            <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2 mb-3">
+                                                <div class="bg-green-500 rounded-full h-2 transition-all duration-500" style="width: ${Math.min((goal.current/goal.target)*100, 100)}%"></div>
+                                            </div>
+                                            <div class="flex gap-2">
+                                                <button onclick="updateGoalProgress(${goal.id})" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm">
+                                                    Update Progress
+                                                </button>
+                                                <button onclick="getGoalAdvice(${goal.id})" class="bg-primary hover:bg-primary-dark text-white px-3 py-1 rounded text-sm">
+                                                    Get AI Advice
+                                                </button>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'achievements':
+                    contentDiv.innerHTML = `
+                        <div class="space-y-6">
+                            <!-- Achievement Progress -->
+                            <div class="bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg">
+                                <h3 class="text-xl font-semibold mb-4">Achievement Progress</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    ${playerData.achievements.map(achievement => `
+                                        <div class="border border-gray-200 dark:border-gray-600 rounded-lg p-4 ${achievement.unlocked ? 'bg-green-50 dark:bg-green-900/20' : 'bg-gray-50 dark:bg-gray-800'}">
+                                            <div class="flex items-start justify-between mb-3">
+                                                <div class="flex items-center">
+                                                    <div class="w-12 h-12 rounded-full flex items-center justify-center mr-3 ${achievement.unlocked ? 'bg-green-500' : 'bg-gray-400'}">
+                                                        <i data-lucide="${achievement.unlocked ? 'trophy' : 'lock'}" class="w-6 h-6 text-white"></i>
+                                                    </div>
+                                                    <div>
+                                                        <h4 class="font-semibold">${achievement.title}</h4>
+                                                        <p class="text-sm text-gray-600 dark:text-gray-300">${achievement.description}</p>
+                                                    </div>
+                                                </div>
+                                                ${achievement.unlocked ? 
+                                                    `<span class="text-xs text-green-600 dark:text-green-400 font-medium">Unlocked ${new Date(achievement.date).toLocaleDateString()}</span>` :
+                                                    achievement.progress ? `<span class="text-xs text-gray-500 dark:text-gray-400">${achievement.progress}%</span>` : ''
+                                                }
+                                            </div>
+                                            ${!achievement.unlocked && achievement.progress ? `
+                                                <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                                                    <div class="bg-primary rounded-full h-2 transition-all duration-500" style="width: ${achievement.progress}%"></div>
+                                                </div>
+                                            ` : ''}
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+
+                            <!-- Achievement Categories -->
+                            <div class="bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg">
+                                <h3 class="text-xl font-semibold mb-4">Achievement Categories</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div class="text-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                                        <div class="text-2xl font-bold text-blue-600">2/5</div>
+                                        <div class="text-sm text-gray-600 dark:text-gray-300">Training Milestones</div>
+                                    </div>
+                                    <div class="text-center p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                                        <div class="text-2xl font-bold text-green-600">1/3</div>
+                                        <div class="text-sm text-gray-600 dark:text-gray-300">Skill Mastery</div>
+                                    </div>
+                                    <div class="text-center p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                                        <div class="text-2xl font-bold text-purple-600">0/4</div>
+                                        <div class="text-sm text-gray-600 dark:text-gray-300">Special Challenges</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+            }
+            
+            // Re-initialize Lucide icons for new content
+            lucide.createIcons();
+        }
+
+        // Interactive Dashboard Functions
+        function startQuickWorkout() {
+            const workoutTypes = ['Shooting', 'Ball Handling', 'Conditioning'];
+            const randomWorkout = workoutTypes[Math.floor(Math.random() * workoutTypes.length)];
+            showWorkoutModal(randomWorkout, 30);
+        }
+
+        function startTemplateWorkout(type) {
+            const template = workoutTemplates.find(t => t.type === type);
+            showWorkoutModal(type, template.duration);
+        }
+
+        function startCustomWorkout() {
+            const type = document.getElementById('workout-type').value;
+            const duration = document.getElementById('workout-duration').value;
+            
+            if (!type || type === 'Select Workout Type') {
+                alert('Please select a workout type');
+                return;
+            }
+            if (!duration || duration < 5) {
+                alert('Please enter a valid duration (minimum 5 minutes)');
+                return;
+            }
+            
+            showWorkoutModal(type, parseInt(duration));
+        }
+
+        function showWorkoutModal(type, duration) {
+            // Simple workout simulation
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+            modal.innerHTML = `
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-8 max-w-md w-full mx-4">
+                    <h3 class="text-2xl font-bold mb-4">${type} Workout</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6">Duration: ${duration} minutes</p>
+                    <div id="workout-timer" class="text-center mb-6">
+                        <div class="text-4xl font-bold text-primary" id="timer-display">${duration}:00</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400">Time remaining</div>
+                    </div>
+                    <div class="flex gap-4">
+                        <button onclick="completeWorkout('${type}', ${duration})" class="flex-1 bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg">
+                            Complete Workout
+                        </button>
+                        <button onclick="closeModal()" class="flex-1 bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300 py-2 rounded-lg">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        function completeWorkout(type, duration) {
+            const score = Math.floor(Math.random() * 30) + 70; // Random score between 70-100
+            const points = Math.floor(score * (duration / 30)); // Points based on score and duration
+            
+            // Add to workout history
+            const newWorkout = {
+                id: playerData.recentWorkouts.length + 1,
+                date: new Date().toISOString().split('T')[0],
+                type: type,
+                duration: duration,
+                points: points,
+                completed: true
+            };
+            playerData.recentWorkouts.unshift(newWorkout);
+            playerData.recentWorkouts = playerData.recentWorkouts.slice(0, 10); // Keep last 10
+            
+            // Update stats
+            playerData.currentWeekPoints += points;
+            playerData.totalPoints += points;
+            playerData.weeklyStats.workouts++;
+            playerData.weeklyStats.totalMinutes += duration;
+            
+            // Update skill based on workout type
+            const skillMapping = {
+                'Shooting': 'shooting',
+                'Ball Handling': 'dribbling',
+                'Defensive Drills': 'defense',
+                'Conditioning': 'conditioning',
+                'Game IQ': 'gameIQ'
+            };
+            
+            const skill = skillMapping[type];
+            if (skill && playerData.skills[skill] < 100) {
+                playerData.skills[skill] = Math.min(100, playerData.skills[skill] + Math.floor(Math.random() * 3) + 1);
+            }
+            
+            closeModal();
+            showNotification(`Workout completed! +${points} points`, 'success');
+            
+            // Refresh dashboard if on overview tab
+            if (currentTab === 'overview') {
+                renderDashboard();
+            }
+        }
+
+        function closeModal() {
+            const modal = document.querySelector('.fixed.inset-0');
+            if (modal) modal.remove();
+        }
+
+        function improveSkill(skill) {
+            if (playerData.skills[skill] < 100) {
+                playerData.skills[skill] = Math.min(100, playerData.skills[skill] + 1);
+                showNotification(`${skill} improved!`, 'success');
+                renderDashboard();
+            }
+        }
+
+        function updateWeeklyGoal() {
+            const newGoal = prompt('Enter new weekly goal:', playerData.weeklyGoal);
+            if (newGoal && !isNaN(newGoal) && newGoal > 0) {
+                playerData.weeklyGoal = parseInt(newGoal);
+                showNotification('Weekly goal updated!', 'success');
+                renderDashboard();
+            }
+        }
+
+        function createGoal() {
+            const title = document.getElementById('goal-title').value;
+            const target = document.getElementById('goal-target').value;
+            const skill = document.getElementById('goal-skill').value;
+            
+            if (!title || !target || !skill || skill === 'Select skill') {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            const newGoal = {
+                id: playerData.goals.length + 1,
+                title: title,
+                target: parseInt(target),
+                current: playerData.skills[skill] || 0,
+                type: skill
+            };
+            
+            playerData.goals.push(newGoal);
+            showNotification('Goal created successfully!', 'success');
+            renderTabContent('goals');
+        }
+
+        function updateGoalProgress(goalId) {
+            const goal = playerData.goals.find(g => g.id === goalId);
+            if (goal) {
+                const newProgress = prompt(`Update progress for "${goal.title}" (current: ${goal.current}):`, goal.current);
+                if (newProgress && !isNaN(newProgress) && newProgress >= 0) {
+                    goal.current = parseInt(newProgress);
+                    showNotification('Goal progress updated!', 'success');
+                    renderTabContent('goals');
+                }
+            }
+        }
+
+        async function getGoalAdvice(goalId) {
+            const goal = playerData.goals.find(g => g.id === goalId);
+            if (goal && window.Poe) {
+                try {
+                    await window.Poe.sendUserMessage(`@Claude-Sonnet-4 I'm working on this basketball goal: "${goal.title}". My current level is ${goal.current} and my target is ${goal.target}. This relates to ${goal.type} skills. Please provide specific, actionable advice to help me reach this goal.`, {
+                        openChat: true
+                    });
+                } catch (err) {
+                    showNotification('Unable to get AI advice right now', 'error');
+                }
+            }
+        }
+
+        async function analyzeSkills() {
+            if (window.Poe) {
+                const skillsData = JSON.stringify(playerData.skills);
+                try {
+                    await window.Poe.sendUserMessage(`@Claude-Sonnet-4 Analyze these basketball skill levels and provide personalized training recommendations: ${skillsData}. Provide specific areas to focus on and suggested drills.`, {
+                        openChat: true
+                    });
+                } catch (err) {
+                    showNotification('Unable to get AI analysis right now', 'error');
+                }
+            }
+        }
+
+        function logProgress() {
+            showDashboardTab('workouts');
+        }
+
+        function updateGoal() {
+            showDashboardTab('goals');
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-20 right-4 z-50 px-6 py-3 rounded-lg text-white transition-all transform translate-x-full ${
+                type === 'success' ? 'bg-green-500' : 
+                type === 'error' ? 'bg-red-500' : 'bg-blue-500'
+            }`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+            
+            // Animate out
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Input event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('coach-input').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    askAICoach();
+                }
+            });
+
+            document.getElementById('nutrition-input').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    askAINutritionist();
+                }
+            });
+
+            // Initialize dashboard preview
+            renderDashboard();
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
